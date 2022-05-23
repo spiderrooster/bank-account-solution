@@ -70,22 +70,22 @@ public class BankAccountTest {
         assertThat(expected)
                 .hasMessage("Cannot withdraw money from an empty account");
     }
-//
-//    @Test
-//    public void cannotWithdrawMoreMoneyThanYouHave() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//        bankAccount.deposit(6);
-//
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        () -> bankAccount.withdraw(7));
-//
-//        assertThat(expected)
-//                .hasMessage(
-//                        "Cannot withdraw more money than is currently in the account");
-//
-//    }
+
+    @Test
+    public void cannotWithdrawMoreMoneyThanYouHave() throws BankAccountActionInvalidException {
+        bankAccount.open();
+        bankAccount.deposit(6);
+
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        () -> bankAccount.withdraw(7));
+
+        assertThat(expected)
+                .hasMessage(
+                        "Cannot withdraw more money than is currently in the account");
+
+    }
 //
 //    @Test
 //    public void cannotDepositNegativeAmount() {
