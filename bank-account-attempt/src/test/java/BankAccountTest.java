@@ -8,58 +8,65 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BankAccountTest {
+public class BankAccountTest
+{
     private BankAccount bankAccount = new BankAccount();
 
     @Test
-    public void newlyOpenedAccountHasEmptyBalance() throws BankAccountActionInvalidException {
+    public void newlyOpenedAccountHasEmptyBalance() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
 
-        assertEquals(0.0,  bankAccount.getBalance(), 0.000);
+        assertEquals(0.0, bankAccount.getBalance(), 0.000);
     }
 
     @Test
-    public void canDepositMoney() throws BankAccountActionInvalidException {
+    public void canDepositMoney() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
 
         bankAccount.deposit(10);
 
-        assertEquals(10,  bankAccount.getBalance(), 0.000);
+        assertEquals(10, bankAccount.getBalance(), 0.000);
     }
 
     @Test
-    public void canDepositMoneySequentially() throws BankAccountActionInvalidException {
+    public void canDepositMoneySequentially() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
 
         bankAccount.deposit(5);
         bankAccount.deposit(23);
 
-        assertEquals(28,  bankAccount.getBalance(), 0.000);
+        assertEquals(28, bankAccount.getBalance(), 0.000);
     }
 
     @Test
-    public void canWithdrawMoney() throws BankAccountActionInvalidException {
+    public void canWithdrawMoney() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
         bankAccount.deposit(10);
 
         bankAccount.withdraw(5);
 
-        assertEquals(5,  bankAccount.getBalance(), 0.000);
+        assertEquals(5, bankAccount.getBalance(), 0.000);
     }
 
     @Test
-    public void canWithdrawMoneySequentially() throws BankAccountActionInvalidException {
+    public void canWithdrawMoneySequentially() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
         bankAccount.deposit(23);
 
         bankAccount.withdraw(10);
         bankAccount.withdraw(13);
 
-        assertEquals(0,  bankAccount.getBalance(), 0.000);
+        assertEquals(0, bankAccount.getBalance(), 0.000);
     }
 
     @Test
-    public void cannotWithdrawMoneyFromEmptyAccount() {
+    public void cannotWithdrawMoneyFromEmptyAccount()
+    {
         bankAccount.open();
 
         BankAccountActionInvalidException expected =
@@ -72,7 +79,8 @@ public class BankAccountTest {
     }
 
     @Test
-    public void cannotWithdrawMoreMoneyThanYouHave() throws BankAccountActionInvalidException {
+    public void cannotWithdrawMoreMoneyThanYouHave() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
         bankAccount.deposit(6);
 
@@ -88,7 +96,8 @@ public class BankAccountTest {
     }
 
     @Test
-    public void cannotDepositNegativeAmount() {
+    public void cannotDepositNegativeAmount()
+    {
         bankAccount.open();
 
         BankAccountActionInvalidException expected =
@@ -101,7 +110,8 @@ public class BankAccountTest {
     }
 
     @Test
-    public void cannotWithdrawNegativeAmount() throws BankAccountActionInvalidException {
+    public void cannotWithdrawNegativeAmount() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
         bankAccount.deposit(105);
 
@@ -115,7 +125,8 @@ public class BankAccountTest {
     }
 
     @Test
-    public void cannotGetBalanceOfClosedAccount() throws BankAccountActionInvalidException {
+    public void cannotGetBalanceOfClosedAccount() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
         bankAccount.deposit(10);
         bankAccount.close();
@@ -129,7 +140,8 @@ public class BankAccountTest {
     }
 
     @Test
-    public void cannotDepositMoneyIntoClosedAccount() {
+    public void cannotDepositMoneyIntoClosedAccount()
+    {
         bankAccount.open();
         bankAccount.close();
 
@@ -142,7 +154,8 @@ public class BankAccountTest {
     }
 
     @Test
-    public void cannotWithdrawMoneyFromClosedAccount() throws BankAccountActionInvalidException {
+    public void cannotWithdrawMoneyFromClosedAccount() throws BankAccountActionInvalidException
+    {
         bankAccount.open();
         bankAccount.deposit(20);
         bankAccount.close();
@@ -156,7 +169,8 @@ public class BankAccountTest {
     }
 
     @Test
-    public void bankAccountIsClosedBeforeItIsOpened() {
+    public void bankAccountIsClosedBeforeItIsOpened()
+    {
         BankAccountActionInvalidException expected =
                 assertThrows(
                         BankAccountActionInvalidException.class,
@@ -166,35 +180,46 @@ public class BankAccountTest {
     }
 
     @Test
-    public void canAdjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException {
+    public void canAdjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException
+    {
         bankAccount.open();
         bankAccount.deposit(1000);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++)
+        {
             adjustBalanceConcurrently();
-            assertEquals(1000,  bankAccount.getBalance(), 0.000);
+            assertEquals(1000, bankAccount.getBalance(), 0.000);
         }
     }
 
-    private void adjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException {
+    private void adjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException
+    {
         Random random = new Random();
 
         Thread[] threads = new Thread[1000];
-        for (int i = 0; i < 1000; i++) {
-            threads[i] = new Thread(() -> {
-                try {
+        for (int i = 0; i < 1000; i++)
+        {
+            threads[i] = new Thread(() ->
+            {
+                try
+                {
                     bankAccount.deposit(5);
                     Thread.sleep(random.nextInt(10));
                     bankAccount.withdraw(5);
-                } catch (BankAccountActionInvalidException e) {
+                }
+                catch (BankAccountActionInvalidException e)
+                {
                     fail("Exception should not be thrown: " + e.getMessage());
-                } catch (InterruptedException ignored) {
+                }
+                catch (InterruptedException ignored)
+                {
                 }
             });
             threads[i].start();
         }
 
-        for (Thread thread : threads) {
+        for (Thread thread : threads)
+        {
             thread.join();
         }
     }
