@@ -18,24 +18,24 @@ public class BankAccountTest {
         assertEquals(0.0,  bankAccount.getBalance(), 0.000);
     }
 
-//    @Test
-//    public void canDepositMoney() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//
-//        bankAccount.deposit(10);
-//
-//        assertEquals(10, bankAccount.getBalance());
-//    }
-//
-//    @Test
-//    public void canDepositMoneySequentially() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//
-//        bankAccount.deposit(5);
-//        bankAccount.deposit(23);
-//
-//        assertEquals(28, bankAccount.getBalance());
-//    }
+    @Test
+    public void canDepositMoney() throws BankAccountActionInvalidException {
+        bankAccount.open();
+
+        bankAccount.deposit(10);
+
+        assertEquals(10,  bankAccount.getBalance(), 0.000);
+    }
+
+    @Test
+    public void canDepositMoneySequentially() throws BankAccountActionInvalidException {
+        bankAccount.open();
+
+        bankAccount.deposit(5);
+        bankAccount.deposit(23);
+        
+        assertEquals(28,  bankAccount.getBalance(), 0.000);
+    }
 //
 //    @Test
 //    public void canWithdrawMoney() throws BankAccountActionInvalidException {
