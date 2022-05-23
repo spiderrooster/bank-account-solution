@@ -165,37 +165,37 @@ public class BankAccountTest {
         assertThat(expected).hasMessage("Account closed");
     }
 
-//    @Test
-//    public void canAdjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException {
-//        bankAccount.open();
-//        bankAccount.deposit(1000);
-//
-//        for (int i = 0; i < 10; i++) {
-//            adjustBalanceConcurrently();
-//            assertEquals(1000, bankAccount.getBalance());
-//        }
-//    }
-//
-//    private void adjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException {
-//        Random random = new Random();
-//
-//        Thread[] threads = new Thread[1000];
-//        for (int i = 0; i < 1000; i++) {
-//            threads[i] = new Thread(() -> {
-//                try {
-//                    bankAccount.deposit(5);
-//                    Thread.sleep(random.nextInt(10));
-//                    bankAccount.withdraw(5);
-//                } catch (BankAccountActionInvalidException e) {
-//                    fail("Exception should not be thrown: " + e.getMessage());
-//                } catch (InterruptedException ignored) {
-//                }
-//            });
-//            threads[i].start();
-//        }
-//
-//        for (Thread thread : threads) {
-//            thread.join();
-//        }
-//    }
+    @Test
+    public void canAdjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException {
+        bankAccount.open();
+        bankAccount.deposit(1000);
+
+        for (int i = 0; i < 10; i++) {
+            adjustBalanceConcurrently();
+            assertEquals(1000,  bankAccount.getBalance(), 0.000);
+        }
+    }
+
+    private void adjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException {
+        Random random = new Random();
+
+        Thread[] threads = new Thread[1000];
+        for (int i = 0; i < 1000; i++) {
+            threads[i] = new Thread(() -> {
+                try {
+                    bankAccount.deposit(5);
+                    Thread.sleep(random.nextInt(10));
+                    bankAccount.withdraw(5);
+                } catch (BankAccountActionInvalidException e) {
+                    fail("Exception should not be thrown: " + e.getMessage());
+                } catch (InterruptedException ignored) {
+                }
+            });
+            threads[i].start();
+        }
+
+        for (Thread thread : threads) {
+            thread.join();
+        }
+    }
 }

@@ -1,27 +1,33 @@
 
-public class BankAccount {
+public class BankAccount
+{
 
     boolean open;
     double balance;
 
-    public BankAccount() {
+    public BankAccount()
+    {
         open = false;
         balance = 0;
     }
 
-    private boolean isOpen() {
+    private synchronized boolean isOpen()
+    {
         return open;
     }
 
-    public void open() {
+    public synchronized void open()
+    {
         open = true;
     }
 
-    public void close() {
+    public synchronized void close()
+    {
         open = false;
     }
 
-    public double getBalance() throws BankAccountActionInvalidException {
+    public double getBalance() throws BankAccountActionInvalidException
+    {
         if (!isOpen())
         {
             throw new BankAccountActionInvalidException("Account closed");
@@ -29,8 +35,10 @@ public class BankAccount {
         return balance;
     }
 
-    public void deposit(int value) throws BankAccountActionInvalidException {
-        if (isOpen()) {
+    public synchronized void deposit(int value) throws BankAccountActionInvalidException
+    {
+        if (isOpen())
+        {
             if (value > 0)
             {
                 balance = (balance + value);
@@ -46,7 +54,8 @@ public class BankAccount {
         }
     }
 
-    public void withdraw(double value) throws BankAccountActionInvalidException {
+    public synchronized void withdraw(double value) throws BankAccountActionInvalidException
+    {
         if (isOpen())
         {
             if (value > 0)
@@ -63,7 +72,8 @@ public class BankAccount {
                 {
                     balance = (balance - value);
                 }
-            } else if (value == 0)
+            }
+            else if (value == 0)
             {
                 throw new BankAccountActionInvalidException("Cannot withdraw 0 from an account account");
             }
