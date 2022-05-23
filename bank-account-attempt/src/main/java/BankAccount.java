@@ -2,7 +2,7 @@
 public class BankAccount {
 
     boolean open;
-    int balance;
+    double balance;
 
     public BankAccount() {
         open = false;
@@ -17,7 +17,7 @@ public class BankAccount {
         open = false;
     }
 
-    public int getBalance() throws BankAccountActionInvalidException {
+    public double getBalance() throws BankAccountActionInvalidException {
         if (!open) {
             throw new BankAccountActionInvalidException("Account closed");
         }

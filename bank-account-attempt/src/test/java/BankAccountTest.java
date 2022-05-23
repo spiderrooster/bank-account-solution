@@ -15,7 +15,7 @@ public class BankAccountTest {
     public void newlyOpenedAccountHasEmptyBalance() throws BankAccountActionInvalidException {
         bankAccount.open();
 
-        assertEquals(0, bankAccount.getBalance());
+        assertEquals(0.0,  bankAccount.getBalance(), 0.000);
     }
 
 //    @Test
