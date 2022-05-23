@@ -37,7 +37,13 @@ public class BankAccount {
         }
     }
 
-    public void withdraw(double value) {
-
+    public void withdraw(double value) throws BankAccountActionInvalidException {
+        if (value > balance) {
+            throw new BankAccountActionInvalidException("Cannot withdraw money from an empty account");
+        } else if (value == 0) {
+            throw new BankAccountActionInvalidException("Cannot withdraw 0 from an account account");
+        } else {
+            balance = balance - value;
+        }
     }
 }

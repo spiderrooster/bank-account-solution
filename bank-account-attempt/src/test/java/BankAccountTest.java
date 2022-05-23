@@ -33,43 +33,43 @@ public class BankAccountTest {
 
         bankAccount.deposit(5);
         bankAccount.deposit(23);
-        
+
         assertEquals(28,  bankAccount.getBalance(), 0.000);
     }
-//
-//    @Test
-//    public void canWithdrawMoney() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//        bankAccount.deposit(10);
-//
-//        bankAccount.withdraw(5);
-//
-//        assertEquals(5, bankAccount.getBalance());
-//    }
-//
-//    @Test
-//    public void canWithdrawMoneySequentially() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//        bankAccount.deposit(23);
-//
-//        bankAccount.withdraw(10);
-//        bankAccount.withdraw(13);
-//
-//        assertEquals(0, bankAccount.getBalance());
-//    }
-//
-//    @Test
-//    public void cannotWithdrawMoneyFromEmptyAccount() {
-//        bankAccount.open();
-//
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        () -> bankAccount.withdraw(5));
-//
-//        assertThat(expected)
-//                .hasMessage("Cannot withdraw money from an empty account");
-//    }
+
+    @Test
+    public void canWithdrawMoney() throws BankAccountActionInvalidException {
+        bankAccount.open();
+        bankAccount.deposit(10);
+
+        bankAccount.withdraw(5);
+
+        assertEquals(5,  bankAccount.getBalance(), 0.000);
+    }
+
+    @Test
+    public void canWithdrawMoneySequentially() throws BankAccountActionInvalidException {
+        bankAccount.open();
+        bankAccount.deposit(23);
+
+        bankAccount.withdraw(10);
+        bankAccount.withdraw(13);
+
+        assertEquals(0,  bankAccount.getBalance(), 0.000);
+    }
+
+    @Test
+    public void cannotWithdrawMoneyFromEmptyAccount() {
+        bankAccount.open();
+
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        () -> bankAccount.withdraw(5));
+
+        assertThat(expected)
+                .hasMessage("Cannot withdraw money from an empty account");
+    }
 //
 //    @Test
 //    public void cannotWithdrawMoreMoneyThanYouHave() throws BankAccountActionInvalidException {
