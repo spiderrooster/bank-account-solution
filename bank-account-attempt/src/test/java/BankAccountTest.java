@@ -86,85 +86,85 @@ public class BankAccountTest {
                         "Cannot withdraw more money than is currently in the account");
 
     }
-//
-//    @Test
-//    public void cannotDepositNegativeAmount() {
-//        bankAccount.open();
-//
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        () -> bankAccount.deposit(-1));
-//
-//        assertThat(expected)
-//                .hasMessage("Cannot deposit or withdraw negative amount");
-//    }
-//
-//    @Test
-//    public void cannotWithdrawNegativeAmount() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//        bankAccount.deposit(105);
-//
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        () -> bankAccount.withdraw(-5));
-//
-//        assertThat(expected)
-//                .hasMessage("Cannot deposit or withdraw negative amount");
-//    }
-//
-//    @Test
-//    public void cannotGetBalanceOfClosedAccount() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//        bankAccount.deposit(10);
-//        bankAccount.close();
-//
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        bankAccount::getBalance);
-//
-//        assertThat(expected).hasMessage("Account closed");
-//    }
-//
-//    @Test
-//    public void cannotDepositMoneyIntoClosedAccount() {
-//        bankAccount.open();
-//        bankAccount.close();
-//
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        () -> bankAccount.deposit(5));
-//
-//        assertThat(expected).hasMessage("Account closed");
-//    }
-//
-//    @Test
-//    public void cannotWithdrawMoneyFromClosedAccount() throws BankAccountActionInvalidException {
-//        bankAccount.open();
-//        bankAccount.deposit(20);
-//        bankAccount.close();
-//
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        () -> bankAccount.withdraw(5));
-//
-//        assertThat(expected).hasMessage("Account closed");
-//    }
-//
-//    @Test
-//    public void bankAccountIsClosedBeforeItIsOpened() {
-//        BankAccountActionInvalidException expected =
-//                assertThrows(
-//                        BankAccountActionInvalidException.class,
-//                        bankAccount::getBalance);
-//
-//        assertThat(expected).hasMessage("Account closed");
-//    }
-//
+
+    @Test
+    public void cannotDepositNegativeAmount() {
+        bankAccount.open();
+
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        () -> bankAccount.deposit(-1));
+
+        assertThat(expected)
+                .hasMessage("Cannot deposit or withdraw negative amount");
+    }
+
+    @Test
+    public void cannotWithdrawNegativeAmount() throws BankAccountActionInvalidException {
+        bankAccount.open();
+        bankAccount.deposit(105);
+
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        () -> bankAccount.withdraw(-5));
+
+        assertThat(expected)
+                .hasMessage("Cannot deposit or withdraw negative amount");
+    }
+
+    @Test
+    public void cannotGetBalanceOfClosedAccount() throws BankAccountActionInvalidException {
+        bankAccount.open();
+        bankAccount.deposit(10);
+        bankAccount.close();
+
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        bankAccount::getBalance);
+
+        assertThat(expected).hasMessage("Account closed");
+    }
+
+    @Test
+    public void cannotDepositMoneyIntoClosedAccount() {
+        bankAccount.open();
+        bankAccount.close();
+
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        () -> bankAccount.deposit(5));
+
+        assertThat(expected).hasMessage("Account closed");
+    }
+
+    @Test
+    public void cannotWithdrawMoneyFromClosedAccount() throws BankAccountActionInvalidException {
+        bankAccount.open();
+        bankAccount.deposit(20);
+        bankAccount.close();
+
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        () -> bankAccount.withdraw(5));
+
+        assertThat(expected).hasMessage("Account closed");
+    }
+
+    @Test
+    public void bankAccountIsClosedBeforeItIsOpened() {
+        BankAccountActionInvalidException expected =
+                assertThrows(
+                        BankAccountActionInvalidException.class,
+                        bankAccount::getBalance);
+
+        assertThat(expected).hasMessage("Account closed");
+    }
+
 //    @Test
 //    public void canAdjustBalanceConcurrently() throws BankAccountActionInvalidException, InterruptedException {
 //        bankAccount.open();
