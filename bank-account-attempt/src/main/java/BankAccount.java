@@ -11,7 +11,7 @@ public class BankAccount
         balance = 0;
     }
 
-    private synchronized boolean isOpen()
+    public synchronized boolean isOpen()
     {
         return open;
     }

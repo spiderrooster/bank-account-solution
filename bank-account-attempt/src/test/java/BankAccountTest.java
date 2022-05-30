@@ -13,6 +13,21 @@ public class BankAccountTest
     private BankAccount bankAccount = new BankAccount();
 
     @Test
+    public void bankAccountAlwaysInitialisesAsClosed() throws BankAccountActionInvalidException
+    {
+        assertFalse(bankAccount.isOpen());
+    }
+
+    @Test
+    public void bankAccountIsOpenFunctionAsExpect() throws BankAccountActionInvalidException
+    {
+        assertFalse(bankAccount.isOpen());
+        bankAccount.open();
+        assertTrue(bankAccount.isOpen());
+    }
+
+
+    @Test
     public void newlyOpenedAccountHasEmptyBalance() throws BankAccountActionInvalidException
     {
         bankAccount.open();
