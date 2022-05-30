@@ -1,7 +1,6 @@
 
 public class BankAccount
 {
-
     boolean open;
     double balance;
 
@@ -37,54 +36,52 @@ public class BankAccount
 
     public synchronized void deposit(int value) throws BankAccountActionInvalidException
     {
-        if (isOpen())
+        if (!isOpen())
         {
-            if (value > 0)
-            {
-                balance = (balance + value);
-            }
-            else
-            {
-                throw new BankAccountActionInvalidException("Cannot deposit or withdraw negative amount");
-            }
+            throw new BankAccountActionInvalidException("Account closed");
         }
         else
         {
-            throw new BankAccountActionInvalidException("Account closed");
+            if (value < 0)
+            {
+                throw new BankAccountActionInvalidException("Cannot deposit or withdraw negative amount");
+            }
+            else
+            {
+                balance = (balance + value);
+            }
         }
     }
 
     public synchronized void withdraw(double value) throws BankAccountActionInvalidException
     {
-        if (isOpen())
+        if (!isOpen())
         {
-            if (value > 0)
+            throw new BankAccountActionInvalidException("Account closed");
+        }
+
+        if (value > 0)
+        {
+            if (balance == 0)
             {
-                if (balance == 0)
-                {
-                    throw new BankAccountActionInvalidException("Cannot withdraw money from an empty account");
-                }
-                else if (value > balance)
-                {
-                    throw new BankAccountActionInvalidException("Cannot withdraw more money than is currently in the account");
-                }
-                else
-                {
-                    balance = (balance - value);
-                }
+                throw new BankAccountActionInvalidException("Cannot withdraw money from an empty account");
             }
-            else if (value == 0)
+            else if (value > balance)
             {
-                throw new BankAccountActionInvalidException("Cannot withdraw 0 from an account account");
+                throw new BankAccountActionInvalidException("Cannot withdraw more money than is currently in the account");
             }
             else
             {
-                throw new BankAccountActionInvalidException("Cannot deposit or withdraw negative amount");
+                balance = (balance - value);
             }
+        }
+        else if (value == 0)
+        {
+            throw new BankAccountActionInvalidException("Cannot withdraw 0 from an account account");
         }
         else
         {
-            throw new BankAccountActionInvalidException("Account closed");
+            throw new BankAccountActionInvalidException("Cannot deposit or withdraw negative amount");
         }
     }
 }
